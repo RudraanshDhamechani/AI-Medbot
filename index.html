@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #003366; / Light gray background /
+        }
+        .navbar {
+            background-color: #333;
+            overflow: hidden;
+        }
+        .navbar a {
+            float: left;
+            font-size: 16px;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+        .navbar a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background-color: rgba(228, 224, 17, 0.9); 
+            / border-radius: 10px; /
+            / box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);  /
+        }
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+        p {
+            font-size: 18px;
+            margin-bottom: 30px;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            font-weight: bold;
+        }
+
+        / Symptom Checker Styles /
+        #symptom-checker {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            / border-radius: 10px; /
+            margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .symptom-checker-button {
+            display: inline-block;
+            padding: 15px 40px;
+            margin-top: 20px;
+            cursor: pointer;
+            border: none;
+            border-radius: 25px;
+            font-size: 20px;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background-color: #007BFF;
+            color: white;
+        }
+        .symptom-checker-button:hover {
+            background-color: #0056b3; / Darker blue on hover /
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        .symptom-checker-button:focus {
+            outline: none; / Remove outline on focus for better aesthetics /
+        }
+        .symptom-checker-button:active {
+            transform: scale(0.95); / Slight scale down when button is clicked /
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s, color 0.3s, transform 0.2s, box-shadow 0.3s;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .button:hover {
+            background-color: #0056b3; / Darker blue on hover /
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+        .yes {
+            background-color: #4CAF50;
+            color: white;
+        }
+        .no {
+            background-color: #FF5733;
+            color: white;
+        }
+        .reset {
+            background-color: #808080;
+            color: white;
+        }
+        .answer {
+            font-size: 18px;
+            margin-top: 20px;
+        }
+        .doctor-card {
+            display: inline-block;
+            margin: 10px;
+            border-radius: 5px;
+            padding: 10px;
+            text-align: center;
+            max-width: 300px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: box-shadow 0.3s;
+            background-color: #fff; / White background for cards /
+        }
+        .doctor-card:hover {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .doctor-img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#">Home</a>
+    </div>
+
+    <div class="container">
+        <h1>Welcome to Symptom Checker</h1>
+        <p>Are you feeling unwell? Use our symptom checker to get personalized recommendations for your health.</p>
+        <button class="symptom-checker-button" onclick="showSymptomChecker()">Symptom Checker</button>
+    </div>
+
+    <div class="container" id="symptom-checker" style="display: none;">
+        <div class="question" id="question">Do you have a fever?</div>
+        <button class="button yes" onclick="answer('yes')">Yes</button>
+        <button class="button no" onclick="answer('no')">No</button>
+        <button class="button reset" onclick="reset()">Reset</button>
+        <div class="answer" id="answer"></div>
+    </div>
+
+    <div class="container">
+        <h2>Symptom Checker Developer</h2>
+        <div class="doctor-card">
+            <img src="1.jpeg" alt="Doctor 1" class="doctor-img">
+            <p>Rudransh Dhamechani</p>
+            <p>Scholars 2A</p>
+        </div>
+    <script>
+        function showSymptomChecker() {
+            document.getElementById("symptom-checker").style.display = "block";
+        }
+
+        let currentQuestion = {
+            text: "Do you have a fever?",
+            yes: {
+             text: "Do you have a sore throat?",
+                yes: "You may have a viral infection. Consult a general physician.",
+                no: "You may have a fever due to another reason. Consult a general physician."
+            },
+            no: {
+                text: "Do you have a cough?",
+                yes: {
+                    text: "Is the cough productive? (producing mucus)",
+                    yes: "You may have a respiratory infection. Consult a pulmonologist.",
+                    no: "You may have a dry cough. Consult a general physician."
+                },
+                no: {
+                    text: "Do you have difficulty breathing?",
+                    yes: "You may have a respiratory issue. Consult a pulmonologist.",
+                    no: "You may have a different health issue. Consult a general physician."
+                }
+            }
+        };
+
+        function updateQuestion() {
+            document.getElementById("question").textContent = currentQuestion.text;
+        }
+
+        function answer(choice) {
+            if (currentQuestion[choice]) {
+                if (typeof currentQuestion[choice] === 'string') {
+                    document.getElementById("answer").textContent = currentQuestion[choice];
+                } else {
+                    currentQuestion = currentQuestion[choice];
+                    updateQuestion();
+                }
+            }
+        }
+
+        function reset() {
+            currentQuestion = {
+                text: "Do you have a fever?",
+                yes: {
+                    text: "Do you have a sore throat?",
+                    yes: "You may have a viral infection. Consult a general physician.",
+                    no: "You may have a fever due to another reason. Consult a general physician."
+                },
+                no: {
+                    text: "Do you have a cough?",
+                    yes: {
+                        text: "Is the cough productive? (producing mucus)",
+                        yes: "You may have a respiratory infection. Consult a pulmonologist.",
+                        no: "You may have a dry cough. Consult a general physician."
+                    },
+                    no: {
+                        text: "Do you have difficulty breathing?",
+                        yes: "You may have a respiratory issue. Consult a pulmonologist.",
+                        no: "You may have a different health issue. Consult a general physician."
+                    }
+                }
+            };
+            document.getElementById("answer").textContent = "";
+            updateQuestion();
+        }
+    </script>
+</body>
+</html>
